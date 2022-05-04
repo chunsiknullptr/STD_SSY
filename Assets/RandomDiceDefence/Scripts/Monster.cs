@@ -1,11 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+// 몬스터 매니저에 약한 커플링, 굳이 몬스터 매니저가 반드시 필요한건 아님.
 public class Monster : MonoBehaviour
 {
     MonsterPathes monsterPathes;
     int currentPathIndex = 0;
+
+    private void Awake()
+    {
+        MonsterManager.Instance.AddTargetable(this);
+    }
+
+    private void OnDestroy()
+    {
+        MonsterManager.Instance.RemoveTarget(this);
+    }
 
     private void Start()
     {
